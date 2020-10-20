@@ -41,7 +41,7 @@ do
   echo "Executing command - ${COMMAND} - on ${ip}..."
   echo "==========================================================================="
   echo
-  kubectl -n ${NAMESPACE} exec -it jumpbox -- /usr/bin/ssh vmware-system-user@$ip ${COMMAND}
+  kubectl -n ${NAMESPACE} exec -it jumpbox -- /usr/bin/ssh -o StrictHostKeyChecking=no vmware-system-user@$ip ${COMMAND}
 done
 
 #kubectl delete pod jumpbox -n ${NAMESPACE}
