@@ -9,4 +9,4 @@ export COMMAND="Command to execute"
 
 Note:- After the initial run, it may take a *couple fo runs* for the script to succseefully execute commands, as the jumpbox gets ready. Also, During the initial runs, you may have to enter *Yes* to accept the SSH thumbprint of the nodes.
 
-2. To create a user with the permissions to modify objects in the VCenter for WCP protected objects. 
+2. `create-wcp-privuser.sh` - GOVC script to create a user with permissions to modify objects in the VCenter for WCP protected objects. 
