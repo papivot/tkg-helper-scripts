@@ -2,7 +2,7 @@
 ### Not for production use
 ---
 
-Note: This is intended for one-time use. As cluster nodes may scale out or scale in, we would have to perform these steps on the new nodes manually.
+Note: This is intended for unique scenarios. As cluster nodes may scale out or scale in, we would have to perform these steps on the new nodes manually.
 
 Log in to each of the nodes (workers and control plane nodes) and perform the following steps - 
 
