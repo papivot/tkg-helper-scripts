@@ -35,8 +35,8 @@ The final file should like something like this -
         [plugins.cri.registry.mirrors."docker.io"]
           endpoint = ["https://registry-1.docker.io"]
       [plugins.cri.registry.configs]
-        [plugins.cri.registry.configs."192.168.10.167"]
-          [plugins.cri.registry.configs."192.168.10.167".tls]
+        [plugins.cri.registry.configs."my.insecure.registry"]
+          [plugins.cri.registry.configs."my.insecure.registry".tls]
             insecure_skip_verify = true
 ...
 ```
