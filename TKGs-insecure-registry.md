@@ -25,7 +25,7 @@ sudo cp -p config.toml config.toml_backup
           [plugins.cri.registry.configs."my.insecure.registry".tls]
             insecure_skip_verify = true
 ```
-where `my.insecure.registry` is the name of the registry that needs to be configured to skip SSL validation
+where `my.insecure.registry` is the name of the registry that needs to be configured to skip SSL validation. Add an entry for each insecure registry. 
 
 The final file should like something like this - 
 ```
