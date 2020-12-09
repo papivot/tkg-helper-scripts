@@ -6,6 +6,7 @@ export TKGSCLUSTER=workload-vsphere-tkg1
 export COMMAND="sudo tdnf install -y linux-esx-devel-4.19.129-1.ph3"
 
 ##################################
+
 export VDS=`kubectl get deploy -n vmware-system-lbapi vmware-system-lbapi-lbapi-controller-manager --no-headers 2>/dev/null |wc -l`
 if [ ${VDS} -eq 0 ]
 then
@@ -53,7 +54,7 @@ do
   else
         kubectl get secret -n ${NAMESPACE} ${TKGSCLUSTER}-ssh -o json |jq -r '.data."ssh-privatekey"'|base64 -d > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
-        ssh -o StrictHostKeyChecking=no vmware-system-user@$ip ${COMMAND}
+        ssh -o StrictHostKeyChecking=no vmware-system-user@${ip} ${COMMAND}
   fi
 done
 
