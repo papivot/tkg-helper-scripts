@@ -51,7 +51,7 @@ do
   then
         kubectl -n ${NAMESPACE} exec -it jumpbox -- /usr/bin/ssh -o StrictHostKeyChecking=no vmware-system-user@$ip ${COMMAND}
   else
-        kubectl get secret -n demo1 workload-vsphere-tkg1-ssh -o json |jq -r '.data."ssh-privatekey"'|base64 -d > ~/.ssh/id_rsa
+        kubectl get secret -n ${NAMESPACE} ${TKGSCLUSTER}-ssh -o json |jq -r '.data."ssh-privatekey"'|base64 -d > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         ssh -o StrictHostKeyChecking=no vmware-system-user@$ip ${COMMAND}
   fi
