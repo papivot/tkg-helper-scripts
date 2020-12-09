@@ -53,5 +53,5 @@ sudo systemctl status containerd
 
 5. to view containerd logs
 ```
-sudo journalctl -u nginx.service
+sudo journalctl -u containerd
 ```
