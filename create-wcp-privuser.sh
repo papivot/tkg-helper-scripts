@@ -1,6 +1,6 @@
 # Highly experimantal. Not for production use. Can cause issues !!!!
 # Modify the two variables. 
-export WCP_USER=wcp-user1
+export WCP_USER=wcpadmin
 export PASSWORD=VMware1!
 
 govc sso.user.create -p ${PASSWORD} -R Admin ${WCP_USER}
