@@ -1,4 +1,14 @@
 #!/bin/sh
+
+if ! command -v jq >/dev/null 2>&1 ; then
+  echo "JQ not installed. Exiting...."
+  exit 1
+fi
+if ! command -v wget >/dev/null 2>&1 ; then
+  echo "wget not installed. Exiting...."
+  exit 1
+fi
+
 echo
 echo "The VMware subscribed content library has the following images: "
 echo
