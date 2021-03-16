@@ -23,8 +23,8 @@ spec:
   containers:
   - image: "photon:3.0"
     name: jumpbox
-    command: [ "/bin/bash", "-c", "--" ]
-    args: [ "yum install -y openssh-server; mkdir /root/.ssh; cp /root/ssh/ssh-privatekey /root/.ssh/id_rsa; chmod 600 /root/.ssh/id_rsa; while true; do sleep 30; done;" ]
+    command: [ "/bin/bash", "-c", "--" ] # Fix this
+    args: [ "yum install -y openssh-client; mkdir /root/.ssh; cp /root/ssh/ssh-privatekey /root/.ssh/id_rsa; chmod 600 /root/.ssh/id_rsa; while true; do sleep 30; done;" ]
     volumeMounts:
       - mountPath: "/root/ssh"
         name: ssh-key
