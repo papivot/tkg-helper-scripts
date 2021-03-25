@@ -1,0 +1,14 @@
+apiVersion: run.tanzu.vmware.com/v1alpha1
+kind: TkgServiceConfiguration
+metadata:
+  name: tkg-service-configuration
+spec:
+  defaultCNI: antrea
+  proxy:
+    httpProxy: http://user:password@10.182.49.15:8888
+    httpsProxy: http://user:password@10.182.49.15:8888
+    noProxy: [172.26.0.0/16,192.168.124.0/24,192.168.123.0/24]
+      trust:
+  additionalTrustedCAs:
+    - name: harbor-ca
+      data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLSNBVEUtLS0tLQo=
