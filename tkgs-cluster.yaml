@@ -1,0 +1,36 @@
+apiVersion: run.tanzu.vmware.com/v1alpha1
+kind: TanzuKubernetesCluster
+metadata:
+  name: workload-vsphere-tkg1
+  namespace: demo1
+spec:
+  distribution:
+    version: v1.18.15
+  topology:
+    controlPlane:
+      count: 1
+      class: best-effort-medium
+      storageClass: nav-gold-policy
+      volumes:
+        - name: etcd
+          mountPath: /var/lib/etcd
+          capacity:
+            storage: 4Gi
+    workers:
+      count: 2
+      class: best-effort-medium
+      storageClass: nav-gold-policy
+      volumes:
+        - name: containerd
+          mountPath: /var/lib/containerd
+          capacity:
+            storage: 30Gi
+  settings:
+    network:
+      services:
+        cidrBlocks: ["198.51.100.0/24"]
+      pods:
+        cidrBlocks: ["192.0.2.0/22"]
+    storage:
+      classes: ["nav-gold-policy"]
+      defaultClass: nav-gold-policy
