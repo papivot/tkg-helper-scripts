@@ -1,16 +1,27 @@
-# Change these as per requirement
-# The script needs to run under the context of the supervisor cluster
-# Pre-req jq, kubectl
-export NAMESPACE=demo1
-export TKGSCLUSTER=workload-vsphere-tkg1
-export COMMAND="sudo tdnf install -y linux-esx-devel-4.19.129-1.ph3"
+#!/bin/bash
+
+while getopts ":n:t:c:" flag
+do
+    case ${flag} in
+        n ) NAMESPACE=${OPTARG}
+	    ;;
+        t ) TKGSCLUSTER=${OPTARG}
+	    ;;
+        c ) COMMAND=${OPTARG}
+	    ;;
+    esac
+done
+
+echo
+echo "Executing $COMMAND on the nodes of $TKGSCLUSTER cluster within the $NAMESPACE namespace..."
+echo
 
 ##################################
 
 export VDS=`kubectl get deploy -n vmware-system-lbapi vmware-system-lbapi-lbapi-controller-manager --no-headers 2>/dev/null |wc -l`
 if [ ${VDS} -eq 0 ]
 then
-  echo "Found NSX based setup. Installing jumpbox in Supervisor cluster"
+  echo "Found NSX based setup. Installing jumpbox pod in $NAMESPACE namespace within Supervisor cluster..."
   export FILE=jumpboxpod-sample.yml
   cat <<EOM > ${FILE}
 ---
@@ -23,7 +34,7 @@ spec:
   containers:
   - image: "ubuntu:20.04"
     name: jumpbox
-    command: [ "/bin/bash" ] # Fix this
+    command: ["/bin/bash"] # Fix this
     args: [ "-c", "apt-get -y update; apt-get -y install openssh-client; mkdir /root/.ssh; cp /root/ssh/ssh-privatekey /root/.ssh/id_rsa; chmod 600 /root/.ssh/id_rsa; while true; do sleep 30; done;" ]
     volumeMounts:
       - mountPath: "/root/ssh"
@@ -58,8 +69,8 @@ do
   fi
 done
 
-#kubectl delete pod jumpbox -n ${NAMESPACE}
 if [ ${VDS} -eq 0 ]
 then
+  kubectl delete pod jumpbox -n ${NAMESPACE}
   rm ${FILE}
 fi
