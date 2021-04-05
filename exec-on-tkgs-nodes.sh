@@ -12,6 +12,11 @@ do
     esac
 done
 
+if ! command -v jq >/dev/null 2>&1 ; then
+  echo "JQ not installed. Exiting...."
+  exit 1
+fi
+
 echo
 echo "Executing $COMMAND on the nodes of $TKGSCLUSTER cluster within the $NAMESPACE namespace..."
 echo
