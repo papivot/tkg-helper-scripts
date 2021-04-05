@@ -21,10 +21,10 @@ metadata:
   namespace: ${NAMESPACE}
 spec:
   containers:
-  - image: "photon:3.0"
+  - image: "ubuntu:20.04"
     name: jumpbox
-    command: [ "/bin/bash", "-c", "--" ] # Fix this
-    args: [ "yum install -y openssh-client; mkdir /root/.ssh; cp /root/ssh/ssh-privatekey /root/.ssh/id_rsa; chmod 600 /root/.ssh/id_rsa; while true; do sleep 30; done;" ]
+    command: [ "/bin/bash" ] # Fix this
+    args: [ "-c", "apt-get -y update; apt-get -y install openssh-client; mkdir /root/.ssh; cp /root/ssh/ssh-privatekey /root/.ssh/id_rsa; chmod 600 /root/.ssh/id_rsa; while true; do sleep 30; done;" ]
     volumeMounts:
       - mountPath: "/root/ssh"
         name: ssh-key
