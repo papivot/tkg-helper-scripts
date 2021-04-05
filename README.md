@@ -5,7 +5,7 @@
 ```shell
 ./exec-on-tkgs-nodes.sh -n [Namespace within the Supervisor Cluster, where the TKGs cluster resides] -t [Name of the TKGs cluster] -c [Command to execute, use ' or " to input multiple strings as command] 
 #
-./execontkgs.sh -n demo1 -t workload-vsphere-tkg1 -c 'sudo cat /etc/kubernetes/extra-config/audit-policy.yaml'
+./exec-on-tkgs-nodes.sh -n demo1 -t workload-vsphere-tkg1 -c 'sudo cat /etc/kubernetes/extra-config/audit-policy.yaml'
 ```
 
 
