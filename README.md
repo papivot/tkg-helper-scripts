@@ -8,7 +8,6 @@ $ ./exec-on-tkgs-nodes.sh -n [Namespace within the Supervisor Cluster, where the
 $ ./exec-on-tkgs-nodes.sh -n demo1 -t workload-vsphere-tkg1 -c 'sudo cat /etc/kubernetes/extra-config/audit-policy.yaml'
 ```
 
-
-Note:- After the initial run, it may take a *couple fo runs* for the script to succseefully execute commands, as the jumpbox gets ready. Also, During the initial runs, you may have to enter *Yes* to accept the SSH thumbprint of the nodes.
+Note:- At the initial run, it may take a *couple fo runs* for the script to succseefully execute commands, as the jumpbox gets ready. Also, During the initial runs, you may have to enter *Yes* to accept the SSH thumbprint of the nodes.
 
 2. `create-wcp-privuser.sh` - GOVC script to create a user with permissions to modify objects in the VCenter for WCP protected objects. 
