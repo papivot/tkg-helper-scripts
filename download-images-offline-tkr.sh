@@ -24,3 +24,10 @@ tar -cvzf ${tkgrimage}.tar.gz ${tkgrimage} --totals
 echo
 echo "Cleaning up..."
 [ -d "${tkgrimage}" ] && rm -rf ${tkgrimage}
+echo "Copy the file to ${tkgrimage}.tar.gz file to the offline jumpbox that has access to the cluster."
+echo "Install and configure govc on the offline jumpbox."
+echo "Use the following command on that jumpbox to import the image to the vCenter Content Library..."
+echo
+echo "     tar -xvf ${tkgrimage}.tar.gz"
+echo "     cd ${tkgrimage}"
+echo "     govc library.import -n ${tkgrimage} -m=true Local ${tkgrimage}.ovf"
