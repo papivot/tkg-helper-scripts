@@ -3,7 +3,7 @@
 In this repository, you will find a collection of helpful scripts that can be used to troubleshoot and/or interact with vSphere with Tanzu. 
 
 ---
-1. `exec-on-tkgs-nodes.sh` - Script to execute a command on all the nodes of a TKGs cluster. Make sure you run this script in the Supervior Cluster context. Pass command line arguments as per your requirements
+1. `exec-on-tkgs-nodes.sh` - Script to execute a command on all the nodes of a Tanzu Kubernetes cluster on vSphere 7. Make sure you run this script in the **Supervior Cluster context**. Pass command line arguments as per your requirements
 
 ```shell
 $ ./exec-on-tkgs-nodes.sh -n [Namespace within the Supervisor Cluster, where the TKGs cluster resides] -t [Name of the TKGs cluster] -c [Command to execute, use ' or " to input multiple strings as command] 
