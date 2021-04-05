@@ -14,4 +14,11 @@ $ ./exec-on-tkgs-nodes.sh -n demo1 -t workload-vsphere-tkg1 -c 'sudo cat /etc/ku
 Note:- At the initial run, it may take a *couple fo runs* for the script to succseefully execute commands, as the jumpbox gets ready. Also, During the initial runs, you may have to enter *Yes* to accept the SSH thumbprint of the nodes.
 
 ---
-2. `create-wcp-privuser.sh` - GOVC script to create a user with permissions to modify objects in the VCenter for WCP protected objects. 
+2. `download-images-offline-tkr.sh` - This is a handy script to download Tanzu Kunbernetes Releases(TKR) OVA images from the VMware Subscribed content library. This is particularly helpful when the vCenter is in a firewalled environment and the Kubernetes content library needs to be populated with the TKR images. 
+
+```shell
+
+```
+
+---
+3. `create-wcp-privuser.sh` - GOVC script to create a user with permissions to modify objects in the VCenter for WCP protected objects. 
