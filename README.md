@@ -1,4 +1,4 @@
-# tkg-helper-scripts
+# vSphere with Tanzu Helper scripts
 
 1. `exec-on-tkgs-nodes.sh` - Script to execute a command on all the nodes of a TKGs cluster. Make sure you run this script in the Supervior Cluster context. Pass command line arguments as per your requirements
 
