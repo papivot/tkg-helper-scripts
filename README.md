@@ -34,8 +34,9 @@ Enter the name of the TanzuKubernetesRelease OVA that you want to download and z
 ```
 
 ---
-3. `get-harbor-admin-password.sh` - The HArbor registry delivered through vSphere with Tanzu is heavily locked down, and the admin credentials are a bit difficult to extract. This script helps to get the required credentials. Due to current limitations, the Harbor namespace is locked down, and this script needs to be executed from the WCP Supervisor control plane VM(s).
+3. `get-harbor-admin-password.sh` - The Harbor registry delivered through vSphere with Tanzu is heavily locked down, and the admin credentials are a bit difficult to extract. This script helps to get the required credentials. Due to current limitations, the Harbor namespace is locked down, and this script needs to be executed from the WCP Supervisor control plane VM(s).
 
+WARNING - THIS IS USED FOR ADVANCED TROUBLESHOOTING AND SHOULD NOT BE USED FOR NORMAL OPERATIONS. 
 
 ---
 4. `create-wcp-privuser.sh` - GOVC script to create a user with permissions to modify objects in the VCenter for WCP protected objects. 
