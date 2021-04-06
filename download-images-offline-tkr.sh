@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if ! command -v jq >/dev/null 2>&1 ; then
   echo "JQ not installed. Exiting...."

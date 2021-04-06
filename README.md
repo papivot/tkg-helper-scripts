@@ -39,7 +39,7 @@ Enter the name of the TanzuKubernetesRelease OVA that you want to download and z
 WARNING - THIS IS USED FOR ADVANCED TROUBLESHOOTING AND SHOULD NOT BE USED FOR NORMAL OPERATIONS. 
 
 ---
-4. `tkgs-cluster.yaml` and `tkgs-config.yaml` - These are two config files that can be used to deploy TKG workload clusters on vSphere with Tanzu. 
+4. `tkgs-cluster.yaml` and `tkgs-config.yaml` - These are two config files that can be used to deploy TKG workload clusters on vSphere with Tanzu. `tkgs-config.yaml` is used to modify the global default configurations and hence should be executed as soon as the Supervisor Cluster has been deployed. `tkgs-cluster.yaml` can be modified and used to deploy Tanzu Kubernetes Cluster. 
 
 ---
-1. `create-wcp-privuser.sh` - GOVC script to create a user with permissions to modify objects in the VCenter for WCP protected objects. 
+5. `create-wcp-privuser.sh` - GOVC script to create a user with permissions to modify objects in the VCenter for WCP protected objects. 

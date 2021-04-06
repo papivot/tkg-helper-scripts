@@ -8,7 +8,9 @@ spec:
     httpProxy: http://user:password@10.182.49.15:8888
     httpsProxy: http://user:password@10.182.49.15:8888
     noProxy: [172.26.0.0/16,192.168.124.0/24,192.168.123.0/24]
-      trust:
-  additionalTrustedCAs:
+  trust:
+    additionalTrustedCAs:
     - name: harbor-ca
       data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLSNBVEUtLS0tLQo=
+    - name: dtr-ca
+      data: LS0tLS1CRUdJTiBDKJAGDHALSJAHDGDtLSNBLbJHSHDKHSDtLQo=
