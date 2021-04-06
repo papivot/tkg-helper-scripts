@@ -42,7 +42,7 @@ WARNING - THIS IS USED FOR ADVANCED TROUBLESHOOTING AND SHOULD NOT BE USED FOR N
 4. `tkgs-cluster.yaml` and `tkgs-config.yaml` - These are two config files that can be used to deploy TKG workload clusters on vSphere with Tanzu. `tkgs-config.yaml` is used to modify the global default configurations and hence should be executed as soon as the Supervisor Cluster has been deployed. `tkgs-cluster.yaml` can be modified and used to deploy Tanzu Kubernetes Cluster. 
 
 ---
-5. `create-wcp-privuser.sh` - GOVC script to create a user with permissions to modify WCP objects in the VCenter for WCP protected objects. This is Highly dangerous and should only be used for troubleshooting purposes. To execute, modify the following variables in the script as per your enviornment and then execute the script.
+5. `create-wcp-privuser.sh` - GOVC script to create a user with permissions to modify WCP objects in the VCenter for WCP protected objects. This is Highly expermental and should only be used for troubleshooting purposes. To execute, modify the following variables in the script as per your enviornment and then execute the script.
 
 ```
 export GOVC_URL=myvcenter.vmware.local
