@@ -39,4 +39,7 @@ Enter the name of the TanzuKubernetesRelease OVA that you want to download and z
 WARNING - THIS IS USED FOR ADVANCED TROUBLESHOOTING AND SHOULD NOT BE USED FOR NORMAL OPERATIONS. 
 
 ---
-4. `create-wcp-privuser.sh` - GOVC script to create a user with permissions to modify objects in the VCenter for WCP protected objects. 
+4. `tkgs-cluster.yaml` and `tkgs-config.yaml` - These are two config files that can be used to deploy TKG workload clusters on vSphere with Tanzu. 
+
+---
+1. `create-wcp-privuser.sh` - GOVC script to create a user with permissions to modify objects in the VCenter for WCP protected objects. 
