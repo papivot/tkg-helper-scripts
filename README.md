@@ -17,7 +17,7 @@ Note:- At the initial run, it may take a *couple of minutes* for the script to e
 2. `download-images-offline-tkr.sh` - This is a handy script to download Tanzu Kunbernetes Releases(TKR) OVA images from the VMware Subscribed content library. This is particularly helpful when the vCenter is in a firewalled environment, and the Kubernetes content library needs to be populated with the TKR images. This script downloads and zips the ova files to be easily transported to the offline environment for easy upload to the content library.   
 
 ```shell
-$ ./ddownload-images-offline-tkr.sh
+$ ./download-images-offline-tkr.sh
 
 The VMware subscribed content library has the following Tanzu Kubernetes Release images ...
 
