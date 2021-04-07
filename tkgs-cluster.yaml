@@ -5,7 +5,7 @@ metadata:
   namespace: demo1
 spec:
   distribution:
-    version: v1.18.15
+    version: v1.19.7
   topology:
     controlPlane:
       count: 1
