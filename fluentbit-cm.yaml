@@ -1,0 +1,26 @@
+---
+    [OUTPUT]
+        Name           syslog
+        Match          kube.*
+        Host           LOG_INSIGHT_SERVER
+        Port           514
+        Mode           tcp
+        Syslog_Format       rfc5424
+        Syslog_Message_key  log
+        Syslog_Hostname_key host
+        Syslog_Appname_key  pod_name
+        Syslog_Procid_key   container_name 
+
+    [OUTPUT]
+        Name           syslog
+        Match          systemd.*
+        Host           LOG_INSIGHT_SERVER
+        Port           514
+        Mode           tcp
+        Syslog_Format       rfc5424
+        Syslog_Message_key  log
+        Syslog_Hostname_key hostname 
+        Syslog_Appname_key  unit   
+        Syslog_Procid_key   pid
+        
+        ...
