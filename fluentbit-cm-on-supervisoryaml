@@ -29,6 +29,7 @@
         Host           10.197.107.61
         Port           9200
         Logstash_Format        True
+        Logstash_Prefix        supervisor
         
     [OUTPUT]
         Name           es
@@ -36,5 +37,6 @@
         Host           10.197.107.61
         Port           9200
         Logstash_Format        True
+        Logstash_Prefix        supervisor
         
         ...
