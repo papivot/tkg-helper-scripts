@@ -23,4 +23,18 @@
         Syslog_Appname_key  unit   
         Syslog_Procid_key   pid
         
+    [OUTPUT]
+        Name           es
+        Match          kube.*
+        Host           10.197.107.61
+        Port           9200
+        Logstash_Format        True
+        
+    [OUTPUT]
+        Name           es
+        Match          systemd.*
+        Host           10.197.107.61
+        Port           9200
+        Logstash_Format        True
+        
         ...
