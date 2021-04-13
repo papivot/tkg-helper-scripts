@@ -10,7 +10,7 @@ spec:
     controlPlane:
       count: 1
       class: best-effort-medium
-      storageClass: nav-gold-policy
+      storageClass: pacific-gold-storage-policy
       volumes:
         - name: etcd
           mountPath: /var/lib/etcd
@@ -19,7 +19,7 @@ spec:
     workers:
       count: 2
       class: best-effort-medium
-      storageClass: nav-gold-policy
+      storageClass: pacific-gold-storage-policy
       volumes:
         - name: containerd
           mountPath: /var/lib/containerd
@@ -32,5 +32,5 @@ spec:
       pods:
         cidrBlocks: ["192.0.2.0/22"]
     storage:
-      classes: ["nav-gold-policy"]
-      defaultClass: nav-gold-policy
+      classes: ["pacific-gold-storage-policy"]
+      defaultClass: pacific-gold-storage-policy
