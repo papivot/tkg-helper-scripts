@@ -1,4 +1,8 @@
 ---
+...
+
+#### LOGINSIGHT SYSLOG ENTRY
+####
     [OUTPUT]
         Name           syslog
         Match          kube.*
@@ -23,6 +27,10 @@
         Syslog_Appname_key  unit   
         Syslog_Procid_key   pid
         
+
+#### ELASTCISEARCH SYSLOG ENTRY
+####
+
     [OUTPUT]
         Name           es
         Match          kube.*
