@@ -19,7 +19,7 @@ spec:
     workers:
       count: 2
       class: best-effort-medium
-      storageClass: pacific-gold-storage-policy
+      storageClass: tanzu
       volumes:
         - name: containerd
           mountPath: /var/lib/containerd
