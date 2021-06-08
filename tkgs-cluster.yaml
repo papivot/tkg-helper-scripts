@@ -10,7 +10,7 @@ spec:
     controlPlane:
       count: 1
       class: best-effort-medium
-      storageClass: pacific-gold-storage-policy
+      storageClass: tanzu
       volumes:
         - name: etcd
           mountPath: /var/lib/etcd
@@ -32,5 +32,5 @@ spec:
       pods:
         cidrBlocks: ["192.0.2.0/22"]
     storage:
-      classes: ["pacific-gold-storage-policy"]
-      defaultClass: pacific-gold-storage-policy
+      classes: ["tanzu"]
+      defaultClass: tanzu
