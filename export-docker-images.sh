@@ -23,7 +23,7 @@ docker save ${images_to_export[@]} -o $INPUTFILE.tar
 gzip $INPUTFILE.tar
 echo
 echo "The docker images have been exported to - $INPUTFILE.tar.gz. Please copy this file a system in the airgapped environment running docker."
-echo "Run the following commands on the environment to load to the images locally - "
+echo "Run the following commands on the environment to load the images locally - "
 echo "$ gzip -d $INPUTFILE.tar.gz"
 echo "$ docker load -i $INPUTFILE.tar"
 echo
