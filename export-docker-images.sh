@@ -31,3 +31,11 @@ echo "To upload the images to the private registry - $NEWREPO - run the followin
 echo "$ docker images"
 echo "$ docker login -u username $NEW_REGISTRY"
 echo "$ docker push image(s)_name"
+
+#helm fetch bitnami/nginx
+
+# Go to Harbor -> Projects -> <project-name> -> Upload tar file
+
+#helm repo add <repo-name> https://<harbor-fqdn>/chartrepo/<project-name>
+#helm repo update
+#helm install nginx <repo-name>/nginx
