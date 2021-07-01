@@ -1,4 +1,4 @@
-## Generate certificates for Minio 
+### Generate certificates for Minio 
 
 ```console
 $ mkdir -p ${HOME}/.minio/certs
@@ -6,11 +6,13 @@ $ cp public-key.cert ${HOME}.minio/certs/public.crt                             
 $ sudo cp private-key.key ${HOME}/.minio/certs/private.key
 ```
 
-Create the data storage folder and start the server
+### Enable Minio
+
+* Create the data storage folder and start the server.
 
 ``` console
 $ mkdir -p ${HOME}/data
-$ minio server /home/nverma/data                                                                                                                                                                                                                ─╯
+$ minio server ${HOME}/data                                                                                                                                                                                                                ─╯
 No credential environment variables defined. Going with the defaults.
 It is strongly recommended to define your own credentials via environment variables MINIO_ROOT_USER and MINIO_ROOT_PASSWORD instead of using default values
 Endpoint: https://10.197.107.61:9000  https://172.17.0.1:9000  https://192.168.100.1:9000  https://192.168.102.1:9000  https://192.168.104.1:9000  https://127.0.0.1:9000
@@ -40,5 +42,38 @@ Certificate:
 Detected default credentials 'minioadmin:minioadmin', please change the credentials immediately by setting 'MINIO_ROOT_USER' and 'MINIO_ROOT_PASSWORD' environment values
 IAM initialization complete
 ```
+* Create a bucket e.g. `test-bucket`
 
-En
+### Enable backup protection on TMC
+
+* Create the required credentials.
+* Create the `Customer provisioned S3-compatible storage` end-point within the TMC interface. 
+* Enable `Data protection on the workload cluster`
+
+
+### Update Velero setting for root CA
+
+* While logged in to the workload cluster, edit and update the following object - 
+```console
+$ kubectl edit backupstoragelocations.velero.io -n velero NAME_OF_S3_COMPATABILE_STORAGE
+```
+Add the base64 encoded root CA `caCert` and update the object.
+
+```yaml
+spec:
+  config:
+    bucket: test-bucket
+    profile: NAME_OF_S3_COMPATABILE_STORAGE
+    publicUrl: https://10.197.107.61:9000
+    region: minio
+    s3ForcePathStyle: "true"
+    s3Url: https://10.197.107.61:9000
+  objectStorage:
+    bucket: test-bucket
+    caCert: LS0tLS1CRUdJTiBDRRU4wQkxJMWE...ElGSUNBVEUtLS0tLQo=
+    prefix: 01F9FNY05068P4KSCM15M26S9G/
+  provider: aws
+status:
+  lastSyncedTime: "2021-07-01T01:53:50.342904668Z"
+```  
+
