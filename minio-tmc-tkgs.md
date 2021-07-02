@@ -2,8 +2,8 @@
 
 ```console
 $ mkdir -p ${HOME}/.minio/certs
-$ cp public-key.cert ${HOME}.minio/certs/public.crt                                                                                                                                                                      ─╯
-$ sudo cp private-key.key ${HOME}/.minio/certs/private.key
+$ cp public-key.cert ${HOME}.minio/certs/public.crt          # public.crt is the public certificate with the Minio servers DNS name
+$ sudo cp private-key.key ${HOME}/.minio/certs/private.key   # private.key is the private key fow the above certificate
 ```
 
 ### Enable Minio
@@ -12,16 +12,16 @@ $ sudo cp private-key.key ${HOME}/.minio/certs/private.key
 
 ``` console
 $ mkdir -p ${HOME}/data
-$ minio server ${HOME}/data                                                                                                                                                                                                                ─╯
+$ minio server ${HOME}/data  
 No credential environment variables defined. Going with the defaults.
 It is strongly recommended to define your own credentials via environment variables MINIO_ROOT_USER and MINIO_ROOT_PASSWORD instead of using default values
-Endpoint: https://10.197.107.61:9000  https://172.17.0.1:9000  https://192.168.100.1:9000  https://192.168.102.1:9000  https://192.168.104.1:9000  https://127.0.0.1:9000
+Endpoint: https://10.197.107.61:9000  ....
 RootUser: minioadmin
 RootPass: minioadmin
 
 Browser Access:
-   https://10.197.107.61:9000  https://172.17.0.1:9000  https://192.168.100.1:9000  https://192.168.102.1:9000  https://192.168.104.1:9000  https://127.0.0.1:9000
-
+   https://10.197.107.61:9000  ...
+   
 Command-line Access: https://docs.min.io/docs/minio-client-quickstart-guide
    $ mc alias set myminio https://10.197.107.61:9000 minioadmin minioadmin
 
@@ -42,14 +42,13 @@ Certificate:
 Detected default credentials 'minioadmin:minioadmin', please change the credentials immediately by setting 'MINIO_ROOT_USER' and 'MINIO_ROOT_PASSWORD' environment values
 IAM initialization complete
 ```
-* Create a bucket e.g. `test-bucket`
+* Create a bucket e.g. `test-bucket`. This can be completed by login in to the Minio browser and creating the bucket. 
 
 ### Enable backup protection on TMC
 
 * Create the required credentials.
-* Create the `Customer provisioned S3-compatible storage` end-point within the TMC interface. 
+* Create the `Customer provisioned S3-compatible storage` end-point within the TMC interface. Use `minio` as the region. 
 * Enable `Data protection on the workload cluster`
-
 
 ### Update Velero setting for root CA
 
