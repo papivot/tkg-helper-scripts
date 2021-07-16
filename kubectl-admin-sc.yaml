@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Create a group called WCPAdminGroup@vsphere.local or similar on the VCenter and add memebers. 
+# Execute this script on the Supervisor Cluster
+# Modify the Group Name below if its not named - WCPAdminGroup@vsphere.local
+
+kubectl patch clusterrolebinding wcp:administrators:cluster-guest-clusters  --type='json' -p='[{"op": "add", "path": "/subjects/1", "value": {"kind": "Group", "name": "sso:WCPAdminGroup@vsphere.local","apiGroup": "rbac.authorization.k8s.io" } }]'
+kubectl patch clusterrolebinding wcp:administrators:cluster-view            --type='json' -p='[{"op": "add", "path": "/subjects/1", "value": {"kind": "Group", "name": "sso:WCPAdminGroup@vsphere.local","apiGroup": "rbac.authorization.k8s.io" } }]'
+kubectl patch clusterrolebinding wcp:administrators:cluster-view-extra     --type='json' -p='[{"op": "add", "path": "/subjects/1", "value": {"kind": "Group", "name": "sso:WCPAdminGroup@vsphere.local","apiGroup": "rbac.authorization.k8s.io" } }]'
