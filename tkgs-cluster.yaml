@@ -31,7 +31,7 @@ spec:
       services:
         cidrBlocks: ["198.51.100.0/24"]
       pods:
-        cidrBlocks: ["192.0.2.0/22"]
+        cidrBlocks: ["192.0.2.0/16"]
     storage:
       classes: ["tanzu"]
       defaultClass: tanzu
