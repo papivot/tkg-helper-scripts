@@ -5,7 +5,7 @@ metadata:
   namespace: demo1
 spec:
   distribution:
-    version: v1.19.7
+    version: v1.20.9
   topology:
     controlPlane:
       count: 1
@@ -31,7 +31,7 @@ spec:
       services:
         cidrBlocks: ["198.51.100.0/24"]
       pods:
-        cidrBlocks: ["192.0.2.0/16"]
+        cidrBlocks: ["192.0.0.0/16"]
     storage:
       classes: ["tanzu"]
       defaultClass: tanzu
