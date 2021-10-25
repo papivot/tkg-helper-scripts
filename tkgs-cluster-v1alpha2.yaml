@@ -1,0 +1,43 @@
+apiVersion: run.tanzu.vmware.com/v1alpha2
+kind: TanzuKubernetesCluster
+metadata:
+  name: workload-vsphere-tkg1
+  namespace: demo1
+spec:
+  topology:
+    controlPlane:
+      replicas: 1
+      vmClass: best-effort-medium
+      storageClass: tanzu
+      volumes:
+        - name: etcd
+          mountPath: /var/lib/etcd
+          capacity:
+            storage: 4Gi
+      tkr:
+        reference:
+          name: v1.20.8---vmware.1-tkg.2
+    nodePools:
+    - name: node-pool-1
+      replicas: 1
+      vmClass: best-effort-medium
+      storageClass: tanzu
+      volumes:
+        - name: containerd
+          mountPath: /var/lib/containerd
+          capacity:
+            storage: 30Gi
+      tkr:
+        reference:
+          name: v1.20.8---vmware.1-tkg.2
+  settings:
+    storage:
+      classes: ["tanzu"]
+      defaultClass: tanzu
+    network:
+      cni:
+        name: antrea
+      pods:
+        cidrBlocks: ["192.0.0.0/16"]
+      services:
+        cidrBlocks: ["198.51.100.0/24"]
