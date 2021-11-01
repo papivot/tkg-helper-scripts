@@ -16,7 +16,7 @@ spec:
             storage: 4Gi
       tkr:
         reference:
-          name: v1.20.8---vmware.1-tkg.2
+          name: v1.21.2---vmware.1-tkg.1.ee25d55
     nodePools:
     - name: node-pool-1
       replicas: 1
@@ -29,7 +29,7 @@ spec:
             storage: 30Gi
       tkr:
         reference:
-          name: v1.20.8---vmware.1-tkg.2
+          name: v1.21.2---vmware.1-tkg.1.ee25d55
   settings:
     storage:
       classes: ["tanzu"]
