@@ -27,7 +27,7 @@ spec:
             storage: 30Gi
   settings:
     network:
-      serviceDomain: "k8s.lab.test"
+#      serviceDomain: "k8s.lab.test"
       services:
         cidrBlocks: ["198.51.100.0/24"]
       pods:
