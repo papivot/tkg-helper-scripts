@@ -8,7 +8,7 @@ spec:
     controlPlane:
       replicas: 1
       vmClass: best-effort-medium
-      storageClass: tanzu
+      storageClass: vsan-default-storage-policy
       volumes:
         - name: etcd
           mountPath: /var/lib/etcd
@@ -16,12 +16,12 @@ spec:
             storage: 4Gi
       tkr:
         reference:
-          name: v1.21.2---vmware.1-tkg.1.ee25d55
+          name: v1.21.6---vmware.1-tkg.1.b3d708a
     nodePools:
     - name: node-pool-1
       replicas: 1
       vmClass: best-effort-medium
-      storageClass: tanzu
+      storageClass: vsan-default-storage-policy
       volumes:
         - name: containerd
           mountPath: /var/lib/containerd
@@ -29,11 +29,11 @@ spec:
             storage: 30Gi
       tkr:
         reference:
-          name: v1.21.2---vmware.1-tkg.1.ee25d55
+          name: v1.21.6---vmware.1-tkg.1.b3d708a
   settings:
     storage:
-      classes: ["tanzu"]
-      defaultClass: tanzu
+      classes: ["vsan-default-storage-policy"]
+      defaultClass: vsan-default-storage-policy
     network:
       cni:
         name: antrea
