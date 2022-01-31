@@ -5,12 +5,12 @@ metadata:
   namespace: demo1
 spec:
   distribution:
-    version: v1.20.9
+    version: v1.21.6
   topology:
     controlPlane:
       count: 1
       class: best-effort-medium
-      storageClass: tanzu
+      storageClass: vsan-default-storage-policy
       volumes:
         - name: etcd
           mountPath: /var/lib/etcd
@@ -19,7 +19,7 @@ spec:
     workers:
       count: 2
       class: best-effort-medium
-      storageClass: tanzu
+      storageClass: vsan-default-storage-policy
       volumes:
         - name: containerd
           mountPath: /var/lib/containerd
@@ -33,5 +33,5 @@ spec:
       pods:
         cidrBlocks: ["192.0.0.0/16"]
     storage:
-      classes: ["tanzu"]
-      defaultClass: tanzu
+      classes: ["vsan-default-storage-policy"]
+      defaultClass: vsan-default-storage-policy
