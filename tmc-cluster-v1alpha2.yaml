@@ -1,0 +1,46 @@
+type:
+  kind: Cluster
+  package: vmware.tanzu.manage.v1alpha1.cluster
+  version: v1alpha1
+fullName: 
+  managementClusterName: nverma-haas-242
+  provisionerName: demo1
+  name: workload-vsphere-tkg3
+meta: {}
+spec:
+    clusterGroupName: nverma
+    tkgServiceVsphere:
+      settings:
+        network:
+          pods:
+            cidrBlocks:
+            - 192.0.0.0/16
+          services:
+            cidrBlocks:
+            - 198.51.100.0/24
+        storage:
+          classes:
+          - vsan-default-storage-policy
+          defaultClass: vsan-default-storage-policy
+      distribution:
+        version: v1.21.6+vmware.1-tkg.1.b3d708a
+      topology:
+        controlPlane:
+          class: best-effort-medium
+          storageClass: vsan-default-storage-policy
+          volumes:
+          - name: etcd
+            mountPath: "/var/lib/etcd"
+            capacity: 4
+        nodePools:
+        - spec:
+            workerNodeCount: '1'
+            tkgServiceVsphere:
+              class: best-effort-medium
+              storageClass: vsan-default-storage-policy
+              volumes:
+              - name: containerd
+                mountPath: "/var/lib/containerd"
+                capacity: 10
+          info:
+            name: default-nodepool 
