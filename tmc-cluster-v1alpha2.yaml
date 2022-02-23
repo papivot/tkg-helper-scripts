@@ -5,7 +5,7 @@ type:
 fullName: 
   managementClusterName: nverma-haas-242
   provisionerName: demo1
-  name: workload-vsphere-tkg3
+  name: workload-vsphere-tkg1
 meta: {}
 spec:
     clusterGroupName: nverma
@@ -41,6 +41,6 @@ spec:
               volumes:
               - name: containerd
                 mountPath: "/var/lib/containerd"
-                capacity: 10
+                capacity: 30
           info:
             name: default-nodepool 
