@@ -42,7 +42,7 @@ subjects:
   name: miniovelero
 ```
 
-### Step 3.  Modify the container(s) specific parameters by adding the following relevent details
+### Step 3.  Modify the container(s) specific parameters by adding the following relevent details.
 
 ```yaml
       hostNetwork: true  #IMPORTANT
