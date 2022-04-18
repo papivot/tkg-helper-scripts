@@ -9,8 +9,6 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: velero
-  labels:
-    component: minio
 ```
 
 ### Step 2. (Optional) Create new service account and add allow wcp-privilaged-psp to its rolebinding. 
@@ -23,8 +21,7 @@ kind: ServiceAccount
 metadata:
   name: miniovelero
   namespace: velero
-  labels:
-    component: minio
+
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
