@@ -2,7 +2,6 @@ apiVersion: run.tanzu.vmware.com/v1alpha2
 kind: TkgServiceConfiguration
 metadata:
   name: tkg-service-configuration
-  namespace: demo1
 spec:
   defaultCNI: antrea
   proxy:
