@@ -42,6 +42,8 @@ spec:
 #            annotations:
 #              run.tanzu.vmware.com/resolve-os-image: os-name=ubuntu
     variables:
+      - name:  ntp
+        value: "ntp.vmware.com"
       - name: vmClass
         value: best-effort-small
       - name: storageClass
