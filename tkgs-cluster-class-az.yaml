@@ -14,6 +14,9 @@ spec:
     class: tanzukubernetescluster
     version: v1.23.8---vmware.2-tkg.2-zshippable
     controlPlane:
+#      metadata:
+#        annotations:
+#          run.tanzu.vmware.com/resolve-os-image: os-name=ubuntu
       replicas: 3
     workers:
       machineDeployments:
@@ -21,14 +24,23 @@ spec:
           failureDomain: zone1
           name: node-pool-1
           replicas: 1
-        - class: node-pool
+#          metadata:
+#            annotations:
+#              run.tanzu.vmware.com/resolve-os-image: os-name=ubuntu
+         - class: node-pool
           failureDomain: zone2
           name: node-pool-2
           replicas: 1
+#          metadata:
+#            annotations:
+#              run.tanzu.vmware.com/resolve-os-image: os-name=ubuntu          
         - class: node-pool
           failureDomain: zone3
           name: node-pool-3
           replicas: 1
+#          metadata:
+#            annotations:
+#              run.tanzu.vmware.com/resolve-os-image: os-name=ubuntu
     variables:
       - name: vmClass
         value: best-effort-small
