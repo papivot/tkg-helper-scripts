@@ -12,7 +12,7 @@ fi
 echo
 echo "The VMware subscribed content library has the following Tanzu Kubernetes Release images ... "
 echo
-curl -s https://wp-content.vmware.com/v2/latest/items.json |jq -r '.items[].name'
+curl -s https://wp-content.vmware.com/v2/latest/items.json |jq -r '[.items[] | {name: .name, created: .created}] | sort_by(.created) | .[].name'
 echo
 read -p "Enter the name of the TanzuKubernetesRelease OVA that you want to download and zip for offline upload: " tkgrimage
 echo
