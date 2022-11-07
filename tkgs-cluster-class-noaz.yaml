@@ -1,7 +1,7 @@
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: Cluster
 metadata:
-  name: workload-vsphere-tkg3
+  name: workload-vsphere-tkg1
   namespace: demo1
 spec:
   clusterNetwork:
@@ -28,7 +28,7 @@ spec:
           replicas: 1
     variables:
       - name: vmClass
-        value: best-effort-small
+        value: best-effort-medium
       - name: storageClass
         value: tanzu
       - name: defaultStorageClass
