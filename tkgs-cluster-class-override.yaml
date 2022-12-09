@@ -1,0 +1,78 @@
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: Cluster
+metadata:
+  name: workload-vsphere-tkg4
+  namespace: demo1
+spec:
+  clusterNetwork:
+    pods:
+      cidrBlocks:
+      - 192.0.0.0/16
+    serviceDomain: cluster.local
+    services:
+      cidrBlocks:
+      - 198.51.100.0/24
+  topology:
+    class: tanzukubernetescluster
+    version: v1.22.9+vmware.1
+    controlPlane:
+      replicas: 1
+    workers:
+      machineDeployments:
+      - class: node-pool
+        name: node-pool-1
+        replicas: 1
+        variables:
+          overrides:
+          - name: vmClass
+            value: best-effort-medium
+          - name: nodePoolVolumes
+            value:
+            - capacity:
+                storage: 30Gi
+              mountPath: /var/lib/containerd
+              name: containerd
+      - class: node-pool
+        name: node-pool-2
+        replicas: 1
+        variables:
+          overrides:
+          - name: vmClass
+            value: best-effort-small
+          - name: nodePoolVolumes
+            value:
+            - capacity:
+                storage: 10Gi
+              mountPath: /var/lib/containerd
+              name: containerd    
+    variables:
+    - name: nodePoolLabels
+      value: []
+    - name: user
+      value:
+        passwordSecret:
+          key: ssh-passwordkey
+          name: workload-vsphere-tkg4-ssh-password-hashed
+        sshAuthorizedKey: |
+          ssh-rsa AAAAB3Nnpm0x88nB7PoSDOMG+rOAB7Z51YaObQN1QI28X/Tp4X4Ey90Faxgy7MumhshyzYtVQinHBtplxrBPrnheSm/GUhYHYBTvnnsY0MVcDBnp++ndo4kWH+X40nkTkY8fNVqQeWFsX7q56ddDXEueJE1UfIN1xkASxdR46nhKNg6yRJVhI3B+gptB0XE9NU1SUi9gBlFVeJUr3rGAf43UZ69hZWLgG71agfoTwqkSD96C87Ny7AtNTMOuU+2VfM+YA/5EzkJIs4qDXp1RP7amdJj5kpcpHaeozJk+Uajfaz2N+y/q7MolL0Sau7LxIxEEJdMJsR81WlyctF2nohCsZ4kBHsIcD0/vP+wqrgsB1FmbgvA9x+TmMK7/Xw42v8gxT2VzFfvSHajq71FqfkdwjftHJglRGfN6PU8TEGL3DH7tVs0fbwFwWTM+G8sQAonwWYr4KzYk4AatL1GdDHi4sdmriMgSEV0GZkuZtVCp1aWBe1hvAKL1bFrKhiNbLyXr5mIFIQuDm7nYZ5sym1Vb/1psLbOZfJ7sqxNw==
+    - name: storageClasses
+      value:
+      - tanzu
+    - name: controlPlaneVolumes
+      value:
+      - capacity:
+          storage: 4Gi
+        mountPath: /var/lib/etcd
+        name: etcd
+    - name: clusterEncryptionConfigYaml
+      value: LS0tCmFwaVZlcnNpb246IGFwaXNlcnZlci5jb25maWcuazhzLmlvL3YxCmtpbmQ6IEVuY3J5cHRpb25Db25maWd1cmF0aW9uCnJlc291cmNlczoKICAtIHJlc291cmNlczoKICAgIC0gc2VjcmV0cwogICAgcHJvdmlkZXJzOgogICAgLSBhZXNjYmM6CiAgICAgICAga2V5czoKICAgICAgICAtIG5hbWU6IGtleTEKICAgICAgICAgIHNlY3JldDogdzFTSm5zd2RNSGNMTHJuMlBZK3lvTEtUNVlpdXRWSi9PQzgzNUdrQzZHST0KICAgIC0gaWRlbnRpdHk6IHt9Cg==
+    - name: vmClass
+      value: best-effort-small
+    - name: nodePoolVolumes
+      value: []
+    - name: storageClass
+      value: tanzu
+    - name: ntp
+      value: ntp.vmware.com
+    - name: nodePoolTaints
+      value: []
