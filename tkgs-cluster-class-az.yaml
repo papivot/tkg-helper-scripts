@@ -16,9 +16,9 @@ metadata:
 spec:
   clusterNetwork:
     services:
-      cidrBlocks: ["198.51.100.0/12"]
+      cidrBlocks: ["20.10.0.0/16"]
     pods:
-      cidrBlocks: ["192.0.2.0/16"]
+      cidrBlocks: ["20.20.0.0/16"]
     serviceDomain: "cluster.local"
   topology:
     class: tanzukubernetescluster
@@ -27,7 +27,7 @@ spec:
 #      metadata:
 #        annotations:
 #          run.tanzu.vmware.com/resolve-os-image: os-name=ubuntu
-      replicas: 3
+      replicas: 1
     workers:
       machineDeployments:
         - class: node-pool
@@ -40,14 +40,14 @@ spec:
          - class: node-pool
           failureDomain: zone2
           name: node-pool-2
-          replicas: 1
+          replicas: 0
 #          metadata:
 #            annotations:
 #              run.tanzu.vmware.com/resolve-os-image: os-name=ubuntu          
         - class: node-pool
           failureDomain: zone3
           name: node-pool-3
-          replicas: 1
+          replicas: 0
 #          metadata:
 #            annotations:
 #              run.tanzu.vmware.com/resolve-os-image: os-name=ubuntu
