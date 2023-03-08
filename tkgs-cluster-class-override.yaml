@@ -5,23 +5,27 @@ metadata:
   namespace: demo1
 spec:
   clusterNetwork:
-    pods:
-      cidrBlocks:
-      - 192.0.0.0/16
-    serviceDomain: cluster.local
     services:
-      cidrBlocks:
-      - 198.51.100.0/24
+      cidrBlocks: ["20.10.0.0/16"]
+    pods:
+      cidrBlocks: ["20.20.0.0/16"]
+    serviceDomain: "cluster.local"
   topology:
     class: tanzukubernetescluster
     version: v1.22.9+vmware.1
     controlPlane:
       replicas: 1
+#      metadata:
+#        annotations:
+#          run.tanzu.vmware.com/resolve-os-image: os-name=ubuntu
     workers:
       machineDeployments:
       - class: node-pool
         name: node-pool-1
         replicas: 1
+#       metadata:
+#         annotations:
+#           run.tanzu.vmware.com/resolve-os-image: os-name=ubuntu
         variables:
           overrides:
           - name: vmClass
@@ -35,6 +39,9 @@ spec:
       - class: node-pool
         name: node-pool-2
         replicas: 1
+#       metadata:
+#         annotations:
+#           run.tanzu.vmware.com/resolve-os-image: os-name=ubuntu
         variables:
           overrides:
           - name: vmClass
