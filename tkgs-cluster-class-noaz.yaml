@@ -6,9 +6,9 @@ metadata:
 spec:
   clusterNetwork:
     services:
-      cidrBlocks: ["20.10.0.0/16"]
+      cidrBlocks: ["192.168.192.0/20"]
     pods:
-      cidrBlocks: ["20.20.0.0/16"]
+      cidrBlocks: ["192.168.208.0/20"]
     serviceDomain: "cluster.local"
   topology:
     class: tanzukubernetescluster
@@ -56,6 +56,8 @@ spec:
 #            annotations:
 #              run.tanzu.vmware.com/resolve-os-image: os-name=ubuntu
     variables:
+      - name: ntp
+        value: time.google.com
       - name: vmClass
         value: best-effort-medium
       - name: storageClass
