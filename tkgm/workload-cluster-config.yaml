@@ -1,3 +1,4 @@
+# tanzu cluster create --file workload-cluster-config.yaml
 #! ---------------------------------------------------------------------
 #! Basic cluster creation configuration
 #! ---------------------------------------------------------------------
