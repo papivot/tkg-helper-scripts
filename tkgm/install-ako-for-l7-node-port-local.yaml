@@ -1,0 +1,36 @@
+apiVersion: networking.tkg.tanzu.vmware.com/v1alpha1
+kind: AKODeploymentConfig
+metadata:
+  name: install-ako-for-l7-node-port-local
+spec:
+  adminCredentialRef:
+    name: avi-controller-credentials
+    namespace: tkg-system-networking
+  certificateAuthorityRef:
+    name: avi-controller-ca
+    namespace: tkg-system-networking
+  controller: 192.168.100.58
+  cloudName: tkg-cloud
+  serviceEngineGroup: Default-Group
+  clusterSelector:
+    matchLabels:
+      nsx-alb-node-port-local-l7: "true"
+  controlPlaneNetwork:
+    cidr: 192.168.102.0/23
+    name: Workload0-VDS-PG
+  dataNetwork:
+    cidr: 192.168.102.0/23
+    name: Workload0-VDS-PG
+  extraConfigs:
+    servicesAPI: true
+    cniPlugin: antrea
+    disableStaticRouteSync: true
+    ingress:
+      defaultIngressController: true # optional, if set to false, you need to specify ingress class in your ingress object
+      disableIngressClass: false  # required
+      serviceType: NodePortLocal  # required
+      shardVSSize: SMALL
+      nodeNetworkList:            # required
+      - networkName: Workload0-VDS-PG
+        cidrs:
+        - 192.168.102.0/23
