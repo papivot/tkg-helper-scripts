@@ -81,14 +81,30 @@ spec:
       - name: nodePoolVolumes
         value:
         - capacity:
-            storage: "30Gi"
+            storage: "15Gi"
           mountPath: "/var/lib/containerd"
           name: containerd
+          storageClass: tanzu
+        - capacity:
+            storage: "15Gi"
+          mountPath: "/var/lib/kubelet"
+          name: kubelet
           storageClass: tanzu
       - name: controlPlaneVolumes
         value:
         - capacity:
-            storage: "4Gi"
-          mountPath: "/var/lib/etcd"
-          name: etcd
+            storage: "15Gi"
+          mountPath: "/var/lib/containerd"
+          name: containerd
           storageClass: tanzu
+        - capacity:
+            storage: "15Gi"
+          mountPath: "/var/lib/kubelet"
+          name: kubelet
+          storageClass: tanzu
+#        Not supported
+#        - capacity:
+#            storage: "4Gi"
+#          mountPath: "/var/lib/etcd"
+#          name: etcd
+#          storageClass: tanzu
