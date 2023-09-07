@@ -12,7 +12,7 @@ spec:
     serviceDomain: "cluster.local"
   topology:
     class: tanzukubernetescluster
-    version: v1.23.8---vmware.2-tkg.2-zshippable
+    version: v1.25.7---vmware.3-fips.1-tkg.1
     controlPlane:
       replicas: 1
 #      variables:

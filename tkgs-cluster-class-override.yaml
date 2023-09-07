@@ -12,7 +12,7 @@ spec:
     serviceDomain: "cluster.local"
   topology:
     class: tanzukubernetescluster
-    version: v1.22.9+vmware.1
+    version: v1.25.7---vmware.3-fips.1-tkg.1
     controlPlane:
       replicas: 1
 #      metadata:
@@ -68,9 +68,15 @@ spec:
     - name: controlPlaneVolumes
       value:
       - capacity:
-          storage: 4Gi
-        mountPath: /var/lib/etcd
-        name: etcd
+          storage: "15Gi"
+        mountPath: "/var/lib/containerd"
+        name: containerd
+        storageClass: tanzu
+      - capacity:
+          storage: "15Gi"
+        mountPath: "/var/lib/kubelet"
+        name: kubelet
+        storageClass: tanzu
     - name: clusterEncryptionConfigYaml
       value: LS0tCmFwaVZlcnNpb246IGFwaXNlcnZlci5jb25maWcuazhzLmlvL3YxCmtpbmQ6IEVuY3J5cHRpb25Db25maWd1cmF0aW9uCnJlc291cmNlczoKICAtIHJlc291cmNlczoKICAgIC0gc2VjcmV0cwogICAgcHJvdmlkZXJzOgogICAgLSBhZXNjYmM6CiAgICAgICAga2V5czoKICAgICAgICAtIG5hbWU6IGtleTEKICAgICAgICAgIHNlY3JldDogdzFTSm5zd2RNSGNMTHJuMlBZK3lvTEtUNVlpdXRWSi9PQzgzNUdrQzZHST0KICAgIC0gaWRlbnRpdHk6IHt9Cg==
     - name: vmClass
