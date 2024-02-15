@@ -1,0 +1,28 @@
+# Execute this on the workload cluster. grant this group view access in vCenter
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: namespace-admin-rolebinding
+  namespace: {{ NAMESPACE }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: namespace-admin
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: Group
+  name: sso:devops-admin@vsphere.local
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: namespace-admin-role
+  namespace: {{ NAMESPACE }}
+rules:
+- apiGroups:
+  - '*'
+  resources:
+  - '*'
+  verbs:
+  - '*'
