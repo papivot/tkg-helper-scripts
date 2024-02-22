@@ -28,6 +28,18 @@ spec:
 #        annotations:
 #          run.tanzu.vmware.com/resolve-os-image: os-name=ubuntu
       replicas: 1
+#  8.0U3
+#      machineHealthCheck:
+#        enable: true
+#        maxUnhealthy: 100%
+#        nodeStartupTimeout: 4h0m0s
+#        unhealthyConditions:
+#        - status: Unknown
+#          timeout: 5m0s
+#          type: Ready
+#        - status: "False"
+#          timeout: 12m0s
+#          type: Ready
     workers:
       machineDeployments:
         - class: node-pool
