@@ -44,7 +44,6 @@ spec:
 #          metadata:
 #            annotations:
 #              run.tanzu.vmware.com/resolve-os-image: os-name=ubuntu
-
         - class: node-pool
           name: node-pool-3
           replicas: 0
