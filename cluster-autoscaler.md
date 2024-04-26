@@ -20,7 +20,9 @@ clusterConfig:
 ```bash
 tanzu package repository add tanzu-standard --url projects.registry.vmware.com/tkg/packages/standard/repo:v2024.4.12 --namespace tkg-system
 tanzu package available list cluster-autoscaler.tanzu.vmware.com -n tkg-system
-tanzu package available get cluster-autoscaler.tanzu.vmware.com/1.27.2+vmware.1-tkg.3 -n tkg-system --default-values-file-output cluster-autoscaler.yaml
-tanzu package install cluster-autoscaler --package cluster-autoscaler.tanzu.vmware.com --namespace tkg-system --version 1.27.2+vmware.1-tkg.3 --values-file cluster-autoscaler.yaml
+# tanzu package available get cluster-autoscaler.tanzu.vmware.com/1.27.2+vmware.1-tkg.3 --default-values-file-output cluster-autoscaler.yaml -n tkg-system
+tanzu package install cluster-autoscaler --package cluster-autoscaler.tanzu.vmware.com --version 1.27.2+vmware.1-tkg.3 --values-file cluster-autoscaler.yaml -n tkg-system
+# To delete
+# tanzu package installed delete cluster-autoscaler -n tkg-system
 ```
 
