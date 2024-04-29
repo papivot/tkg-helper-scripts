@@ -1,0 +1,118 @@
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: Cluster
+metadata:
+  name: workload-vsphere-tkg1
+  namespace: demo1
+spec:
+  clusterNetwork:
+    services:
+      cidrBlocks: ["192.168.32.0/20"]
+    pods:
+      cidrBlocks: ["192.168.0.0/20"]
+    serviceDomain: "cluster.local"
+  topology:
+    class: tanzukubernetescluster
+    version: v1.25.7---vmware.3-fips.1-tkg.1
+    controlPlane:
+      replicas: 1
+#      variables:
+#        overrides:
+#        - name: vmClass
+#          value: best-effort-large
+#      metadata:
+#        annotations:
+#          run.tanzu.vmware.com/resolve-os-image: os-name=ubuntu
+    workers:
+      machineDeployments:
+        - class: node-pool
+          name: node-pool-1
+          metadata:
+            annotations:
+              cluster.x-k8s.io/cluster-api-autoscaler-node-group-max-size: "3"
+              cluster.x-k8s.io/cluster-api-autoscaler-node-group-min-size: "1"
+#          variables:
+#            overrides:
+#            - name: vmClass
+#              value: best-effort-large
+#          metadata:
+#            annotations:
+#              run.tanzu.vmware.com/resolve-os-image: os-name=ubuntu
+        - class: node-pool
+          name: node-pool-2
+          metadata:
+            annotations:
+              cluster.x-k8s.io/cluster-api-autoscaler-node-group-max-size: "3"
+              cluster.x-k8s.io/cluster-api-autoscaler-node-group-min-size: "0"
+#          variables:
+#            overrides:
+#            - name: vmClass
+#              value: best-effort-large
+#          metadata:
+#            annotations:
+#              run.tanzu.vmware.com/resolve-os-image: os-name=ubuntu
+        - class: node-pool
+          name: node-pool-3
+          metadata:
+            annotations:
+              cluster.x-k8s.io/cluster-api-autoscaler-node-group-max-size: "3"
+              cluster.x-k8s.io/cluster-api-autoscaler-node-group-min-size: "0"
+#          variables:
+#            overrides:
+#            - name: vmClass
+#              value: best-effort-large
+#          metadata:
+#            annotations:
+#              run.tanzu.vmware.com/resolve-os-image: os-name=ubuntu
+    variables:
+      - name: ntp
+        value: time.google.com
+      - name: vmClass
+        value: best-effort-medium
+      - name: storageClass
+        value: tanzu
+      - name: defaultStorageClass
+        value: tanzu
+      - name: clusterEncryptionConfigYaml
+        value: |
+          apiVersion: apiserver.config.k8s.io/v1
+          kind: EncryptionConfiguration
+          resources:
+            - resources:
+                - secrets
+              providers:
+                - aescbc:
+                    keys:
+                      - name: key1
+                        secret: QiMgJGYXudtljldVyl+AnXQQlk7r9iUXBfVKqdEfKm8=
+                - identity: {}
+# ADDITIONAL VALUES
+      - name: nodePoolVolumes
+        value:
+        - capacity:
+            storage: "15Gi"
+          mountPath: "/var/lib/containerd"
+          name: containerd
+          storageClass: tanzu
+        - capacity:
+            storage: "15Gi"
+          mountPath: "/var/lib/kubelet"
+          name: kubelet
+          storageClass: tanzu
+      - name: controlPlaneVolumes
+        value:
+        - capacity:
+            storage: "15Gi"
+          mountPath: "/var/lib/containerd"
+          name: containerd
+          storageClass: tanzu
+        - capacity:
+            storage: "15Gi"
+          mountPath: "/var/lib/kubelet"
+          name: kubelet
+          storageClass: tanzu
+#        Not supported
+#        - capacity:
+#            storage: "4Gi"
+#          mountPath: "/var/lib/etcd"
+#          name: etcd
+#          storageClass: tanzu
