@@ -10,10 +10,14 @@ spec:
       vmClass: best-effort-medium
       storageClass: vsan-default-storage-policy
       volumes:
-        - name: etcd
-          mountPath: /var/lib/etcd
+        - name: containerd
+          mountPath: /var/lib/containerd
           capacity:
-            storage: 4Gi
+            storage: 15Gi
+        - name: kubelet
+          mountPath: /var/lib/kubelet
+          capacity:
+            storage: 15Gi
       tkr:
         reference:
           name: v1.21.6---vmware.1-tkg.1.b3d708a
@@ -27,6 +31,10 @@ spec:
           mountPath: /var/lib/containerd
           capacity:
             storage: 30Gi
+        - name: kubelet
+          mountPath: /var/lib/kubelet
+          capacity:
+            storage: 30Gi
       tkr:
         reference:
           name: v1.21.6---vmware.1-tkg.1.b3d708a
@@ -38,6 +46,6 @@ spec:
       cni:
         name: antrea
       pods:
-        cidrBlocks: ["192.0.0.0/16"]
+        cidrBlocks: ["10.244.0.0/16"]
       services:
-        cidrBlocks: ["198.51.100.0/24"]
+        cidrBlocks: ["192.168.1.0/24"]
