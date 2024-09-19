@@ -1,64 +1,137 @@
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: Cluster
 metadata:
-  name: workload-vsphere-tkg1
-  namespace: demo1
+  name: workload-vsphere-tkg5
 spec:
   clusterNetwork:
-    services:
-      cidrBlocks: ["192.168.32.0/20"]
+    apiServerPort: 6443
     pods:
-      cidrBlocks: ["192.168.0.0/20"]
+      cidrBlocks: ["192.168.32.0/20"]
     serviceDomain: "cluster.local"
+    services:
+      cidrBlocks: ["192.168.0.0/20"]
+  paused: false
   topology:
     class: tanzukubernetescluster
-    version: v1.25.7---vmware.3-fips.1-tkg.1
+    version: v1.28.8---vmware.1-fips.1-tkg.2
     controlPlane:
+#      machineHealthCheck:
+#        enable: true
+#        maxUnhealthy: 100%
+#        nodeStartupTimeout: 4h0m0s
+#        unhealthyConditions:
+#        - status: Unknown
+#          timeout: 5m0s
+#          type: Ready
+#       - status: "False"
+#          timeout: 12m0s
+#          type: Ready
+      metadata:
+        annotations:
+          run.tanzu.vmware.com/resolve-os-image: os-name=ubuntu
+        labels:
+          my-custom-label-key: my-custom-label-value
+#      nodeDeletionTimeout: "10s"
+#      nodeDrainTimeout: "0s"
+#      nodeVolumeDetachTimeout: "0s"
       replicas: 1
-#      variables:
-#        overrides:
-#        - name: vmClass
-#          value: best-effort-large
-#      metadata:
-#        annotations:
-#          run.tanzu.vmware.com/resolve-os-image: os-name=ubuntu
     workers:
       machineDeployments:
-        - class: node-pool
-          name: node-pool-1
-          replicas: 1
-#          variables:
-#            overrides:
-#            - name: vmClass
-#              value: best-effort-large
-#          metadata:
-#            annotations:
-#              run.tanzu.vmware.com/resolve-os-image: os-name=ubuntu
-        - class: node-pool
-          name: node-pool-2
-          replicas: 0
-#          variables:
-#            overrides:
-#            - name: vmClass
-#              value: best-effort-large
-#          metadata:
-#            annotations:
-#              run.tanzu.vmware.com/resolve-os-image: os-name=ubuntu
-        - class: node-pool
-          name: node-pool-3
-          replicas: 0
-#          variables:
-#            overrides:
-#            - name: vmClass
-#              value: best-effort-large
-#          metadata:
-#            annotations:
-#              run.tanzu.vmware.com/resolve-os-image: os-name=ubuntu
+      - class: node-pool
+#        failureDomain: zone1
+#        machineHealthCheck:
+#          enable: true
+#          maxUnhealthy: 100%
+#          nodeStartupTimeout: 4h0m0s
+#          unhealthyConditions:
+#          - status: Unknown
+#            timeout: 5m0s
+#            type: Ready
+#          - status: "False"
+#            timeout: 12m0s
+#            type: Ready
+        metadata:
+          annotations:
+#            cluster.x-k8s.io/cluster-api-autoscaler-node-group-max-size: "3"
+#            cluster.x-k8s.io/cluster-api-autoscaler-node-group-min-size: "1"
+            run.tanzu.vmware.com/resolve-os-image: os-name=ubuntu
+          labels:
+            my-custom-label-key: my-custom-label-value
+        minReadySeconds: 0
+        name: node-pool-1
+#        nodeDeletionTimeout: "10s"
+#        nodeDrainTimeout: "0s"
+#        nodeVolumeDetachTimeout: "0s"
+        replicas: 1
+        variables:
+          overrides:
+          - name: vmClass
+            value: best-effort-medium
+          - name: nodePoolLabels
+            value: [{ "key": "my-nodepool-name", "value": "node-pool-1" }]
+      - class: node-pool
+#        failureDomain: zone2
+#        machineHealthCheck:
+#          enable: true
+#          maxUnhealthy: 100%
+#          nodeStartupTimeout: 4h0m0s
+#          unhealthyConditions:
+#          - status: Unknown
+#            timeout: 5m0s
+#            type: Ready
+#          - status: "False"
+#            timeout: 12m0s
+#            type: Ready
+        metadata:
+          annotations:
+#            cluster.x-k8s.io/cluster-api-autoscaler-node-group-max-size: "3"
+#            cluster.x-k8s.io/cluster-api-autoscaler-node-group-min-size: "0"
+            run.tanzu.vmware.com/resolve-os-image: os-name=ubuntu
+          labels:
+            my-custom-label-key: my-custom-label-value
+        name: node-pool-2
+#        nodeDeletionTimeout: "10s"
+#        nodeDrainTimeout: "0s"
+#        nodeVolumeDetachTimeout: "0s"
+        replicas: 0
+#        variables:
+#          overrides:
+#          - name: vmClass
+#            value: best-effort-large
+      - class: node-pool
+#        failureDomain: zone3
+#        machineHealthCheck:
+#          enable: true
+#          maxUnhealthy: 100%
+#          nodeStartupTimeout: 4h0m0s
+#          unhealthyConditions:
+#          - status: Unknown
+#            timeout: 5m0s
+#            type: Ready
+#          - status: "False"
+#            timeout: 12m0s
+#            type: Ready
+        metadata:
+          annotations:
+#            cluster.x-k8s.io/cluster-api-autoscaler-node-group-max-size: "3"
+#           cluster.x-k8s.io/cluster-api-autoscaler-node-group-min-size: "0"
+            run.tanzu.vmware.com/resolve-os-image: os-name=ubuntu
+          labels:
+            my-custom-label-key: my-custom-label-value
+        name: node-pool-3
+#        nodeDeletionTimeout: "10s"
+#        nodeDrainTimeout: "0s"
+#        nodeVolumeDetachTimeout: "0s"
+        replicas: 0
+#         variables:
+#           overrides:
+#           - name: vmClass
+#             value: best-effort-large
     variables:
       - name: ntp
         value: time.google.com
       - name: vmClass
-        value: best-effort-medium
+        value: best-effort-small
       - name: storageClass
         value: tanzu
       - name: defaultStorageClass
@@ -77,18 +150,18 @@ spec:
                         secret: QiMgJGYXudtljldVyl+AnXQQlk7r9iUXBfVKqdEfKm8=
                 - identity: {}
 # ADDITIONAL VALUES
-      - name: nodePoolVolumes
-        value:
-        - capacity:
-            storage: "15Gi"
-          mountPath: "/var/lib/containerd"
-          name: containerd
-          storageClass: tanzu
-        - capacity:
-            storage: "15Gi"
-          mountPath: "/var/lib/kubelet"
-          name: kubelet
-          storageClass: tanzu
+#      - name: nodePoolVolumes
+#        value:
+#        - capacity:
+#            storage: "15Gi"
+#          mountPath: "/var/lib/containerd"
+#          name: containerd
+#          storageClass: tanzu
+#        - capacity:
+#            storage: "15Gi"
+#          mountPath: "/var/lib/kubelet"
+#          name: kubelet
+#          storageClass: tanzu
       - name: controlPlaneVolumes
         value:
         - capacity:
@@ -101,9 +174,26 @@ spec:
           mountPath: "/var/lib/kubelet"
           name: kubelet
           storageClass: tanzu
-#        Not supported
-#        - capacity:
-#            storage: "4Gi"
-#          mountPath: "/var/lib/etcd"
-#          name: etcd
-#          storageClass: tanzu
+      - name: podSecurityStandard
+        value:
+          audit: restricted
+          auditVersion: latest
+          enforce: privileged
+          enforceVersion: latest
+          warn: privileged
+          warnVersion: latest
+      - name: kubeAPIServerFQDNs
+        value:
+          - workload-vsphere-tkg4.env1.lab.test
+      - name: controlPlaneCertificateRotation
+        value:
+          daysBefore: 90
+      - name: nodePoolLabels
+        value:
+          - key: "my-nodepool-key"
+            value: "my-nodepool-value"
+#      - name: proxy
+#        value:
+#          httpProxy:
+#          httpsProxy:
+#          noProxy: ["",""]
