@@ -1,0 +1,111 @@
+apiVersion: addons.kubernetes.vmware.com/v1alpha1
+kind: AddonInstall
+metadata:
+  name: cluster-ako
+  namespace: demo1
+spec:
+  addonRef:
+    name: ako
+  clusters:
+  - selector:
+      matchLabels:
+        cluster.x-k8s.io/cluster-name: workload-vsphere-vks2
+---
+apiVersion: addons.kubernetes.vmware.com/v1alpha1
+kind: AddonConfig
+metadata:
+  annotations:
+    clusteraddon.addons.kubernetes.vmware.com/owned-for-deletion: "true"
+  name: workload-vsphere-vks2-ako
+  namespace: demo1
+spec:
+#  addonConfigDefinitionRef:
+#    name: ako.kubernetes.vmware.com.1.13.4---vmware.1-vks.1
+#    namespace: vmware-system-vks-public
+#  clusterName: workload-vsphere-vks2
+---
+apiVersion: addons.kubernetes.vmware.com/v1alpha1
+kind: AddonInstall
+metadata:
+  name: cluster-cert-manager
+  namespace: demo1
+spec:
+  addonRef:
+    name: cert-manager
+  clusters:
+  - selector:
+      matchLabels:
+        cluster.x-k8s.io/cluster-name: workload-vsphere-vks2
+---
+apiVersion: addons.kubernetes.vmware.com/v1alpha1
+kind: AddonConfig
+metadata:
+  annotations:
+    clusteraddon.addons.kubernetes.vmware.com/owned-for-deletion: "true"
+  name: workload-vsphere-vks2-cert-manager
+  namespace: demo1
+spec:
+#  addonConfigDefinitionRef:
+#    name: cert-manager.kubernetes.vmware.com.1.18.2---vmware.2-vks.2
+#    namespace: vmware-system-vks-public
+#  clusterName: workload-vsphere-vks2
+---
+apiVersion: addons.kubernetes.vmware.com/v1alpha1
+kind: AddonInstall
+metadata:
+  name: cluster-cluster-autoscaler
+  namespace: demo1
+spec:
+  addonRef:
+    name: cluster-autoscaler
+  clusters:
+  - selector:
+      matchLabels:
+        cluster.x-k8s.io/cluster-name: workload-vsphere-vks2
+---
+apiVersion: addons.kubernetes.vmware.com/v1alpha1
+kind: AddonConfig
+metadata:
+  annotations:
+    clusteraddon.addons.kubernetes.vmware.com/owned-for-deletion: "true"
+  name: workload-vsphere-vks2-cluster-autoscaler
+  namespace: demo1
+spec:
+#  addonConfigDefinitionRef:
+#    name: cluster-autoscaler.vks.vmware.com.1.33.0---vmware.2-vks.1
+#    namespace: vmware-system-vks-public
+#  clusterName: workload-vsphere-vks2
+---
+apiVersion: addons.kubernetes.vmware.com/v1alpha1
+kind: AddonInstall
+metadata:
+  name: cluster-prometheus
+  namespace: demo1
+spec:
+  addonRef:
+    name: prometheus
+  clusters:
+  - selector:
+      matchLabels:
+        cluster.x-k8s.io/cluster-name: workload-vsphere-vks2
+---
+apiVersion: addons.kubernetes.vmware.com/v1alpha1
+kind: AddonConfig
+metadata:
+  annotations:
+    clusteraddon.addons.kubernetes.vmware.com/owned-for-deletion: "true"
+  name: workload-vsphere-vks2-prometheus
+  namespace: demo1
+spec:
+  addonConfigDefinitionRef:
+    name: prometheus.kubernetes.vmware.com.3.5.0---vmware.1-vks.2
+    namespace: vmware-system-vks-public
+  clusterName: workload-vsphere-vks2
+  values:
+    alertmanager:
+      pvc:
+        storageClassName: development
+    prometheus:
+      pvc:
+        storageClassName: development
+        storage: "10Gi"
