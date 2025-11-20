@@ -1,0 +1,132 @@
+apiVersion: addons.kubernetes.vmware.com/v1alpha1
+kind: AddonInstall
+metadata:
+  name: cluster-cert-manager
+  namespace: demo1
+spec:
+  addonRef:
+    name: cert-manager
+  clusters:
+  - selector:
+      matchLabels:
+        cluster.x-k8s.io/cluster-name: workload-vsphere-vks1
+---
+apiVersion: addons.kubernetes.vmware.com/v1alpha1
+kind: AddonInstall
+metadata:
+  name: cluster-cluster-autoscaler
+  namespace: demo1
+spec:
+  addonRef:
+    name: cluster-autoscaler
+  clusters:
+  - selector:
+      matchLabels:
+        cluster.x-k8s.io/cluster-name: workload-vsphere-vks1
+---
+apiVersion: addons.kubernetes.vmware.com/v1alpha1
+kind: AddonInstall
+metadata:
+  name: cluster-trivy
+  namespace: demo1 # Your vSphere namespace
+spec:
+  addonRef:
+    name: trivy-operator
+  clusters:
+  - selector:
+      matchLabels:
+        cluster.x-k8s.io/cluster-name: workload-vsphere-vks1
+---
+apiVersion: addons.kubernetes.vmware.com/v1alpha1
+kind: AddonInstall
+metadata:
+  name: cluster-contour
+  namespace: demo1 # Your vSphere namespace
+spec:
+  addonRef:
+    name: contour
+  clusters:
+  - selector:
+      matchLabels:
+        cluster.x-k8s.io/cluster-name: workload-vsphere-vks1
+---
+apiVersion: cluster.x-k8s.io/v1beta2
+kind: Cluster
+metadata:
+  name: workload-vsphere-vks1
+  namespace: demo1
+spec:
+  clusterNetwork:
+    pods:
+      cidrBlocks:
+      - 240.0.0.0/20
+    serviceDomain: cluster.local
+    services:
+      cidrBlocks:
+      - 240.1.0.0/20
+  topology:
+    classRef:
+      name: builtin-generic-v3.5.0
+      namespace: vmware-system-vks-public
+    controlPlane:
+      variables:
+        overrides:                             # See Clusterclass variables for more details
+        - name: vmClass
+          value: best-effort-large
+      metadata:
+        annotations:
+          run.tanzu.vmware.com/resolve-os-image: os-name=ubuntu,os-version=24.04
+      replicas: 1
+    variables:
+    - name: storageClass
+      value: tanzu
+    - name: vmClass
+      value: best-effort-medium
+    - name: volumes
+      value:
+      - capacity: 15Gi
+        mountPath: /var/lib/containerd
+        name: containerd
+        storageClass: tanzu
+      - capacity: 15Gi
+        mountPath: /var/lib/kubelet
+        name: kubelet
+        storageClass: tanzu
+    - name: kubernetes
+      value:
+        certificateRotation:
+          enabled: true
+          renewalDaysBeforeExpiry: 90
+        security:
+          podSecurityStandard:
+            audit: privileged
+            auditVersion: latest
+            deactivated: false
+            enforce: privileged
+            enforceVersion: latest
+            warn: privileged
+            warnVersion: latest
+    - name: vsphereOptions
+      value:
+        persistentVolumes:
+          availableStorageClasses:
+          - tanzu
+          defaultStorageClass: tanzu
+    - name: osConfiguration
+      value:
+        ntp:
+          servers:
+          - time3.lvn.broadcom.net
+        sshd:
+          banner: '---AUTHORIZED ACCESS ONLY--- Use of this system is restricted to
+            authorized users for authorized activities only. '
+    version: v1.33.3+vmware.1-fips
+    workers:
+      machineDeployments:
+      - class: node-pool
+        metadata:
+          annotations:
+            cluster.x-k8s.io/cluster-api-autoscaler-node-group-max-size: "4"
+            cluster.x-k8s.io/cluster-api-autoscaler-node-group-min-size: "1"
+            run.tanzu.vmware.com/resolve-os-image: os-name=ubuntu,os-version=24.04
+        name: node-pool-1
