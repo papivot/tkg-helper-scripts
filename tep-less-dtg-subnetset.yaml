@@ -1,0 +1,10 @@
+apiVersion: crd.nsx.vmware.com/v1alpha1
+kind: SubnetSet
+metadata:
+  name: subnet-set-public1
+  namespace: demo1
+spec:
+  accessMode: Public
+  ipv4SubnetSize: 16
+  subnetDHCPConfig:
+    mode: DHCPDeactivated

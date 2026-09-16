@@ -1,0 +1,141 @@
+apiVersion: addons.kubernetes.vmware.com/v1alpha1
+kind: AddonInstall
+metadata:
+  name: cluster-cert-manager
+  namespace: demo1 # Your vSphere namespace
+spec:
+  addonRef:
+    name: cert-manager
+  clusters:
+  - selector:
+      matchLabels:
+        cluster.x-k8s.io/cluster-name: workload-vsphere-vks1
+---
+apiVersion: addons.kubernetes.vmware.com/v1alpha1
+kind: AddonInstall
+metadata:
+  name: cluster-prom
+  namespace: demo1 # Your vSphere namespace
+spec:
+  addonRef:
+    name: prometheus
+  clusters:
+  - selector:
+      matchLabels:
+        cluster.x-k8s.io/cluster-name: workload-vsphere-vks1
+---
+apiVersion: addons.kubernetes.vmware.com/v1alpha1
+kind: AddonConfig
+metadata:
+  annotations:
+    clusteraddon.addons.kubernetes.vmware.com/owned-for-deletion: "true"
+  name: workload-vsphere-vks1-prometheus
+  namespace: demo1 # Your vSphere namespace
+spec:
+  values:
+    deploycomponents:
+      kube-state-metrics: true
+      node-exporter: true
+      pushgateway: false
+      prometheus: false
+      alertmanager: true
+      prometheus-operator: true
+---
+apiVersion: cluster.x-k8s.io/v1beta2
+kind: Cluster
+metadata:
+  name: workload-vsphere-vks1
+  namespace: demo1
+spec:
+  clusterNetwork:
+    pods:
+      cidrBlocks:
+      - 240.0.0.0/20
+    serviceDomain: cluster.local
+    services:
+      cidrBlocks:
+      - 240.1.0.0/20
+  topology:
+    classRef:
+      name: builtin-generic-v3.7.0
+      namespace: vmware-system-vks-public
+    controlPlane:
+      metadata:
+        annotations:
+          run.tanzu.vmware.com/resolve-os-image: os-name=ubuntu,os-version=24.04
+      replicas: 1
+      variables:
+        overrides:
+        - name: vmClass
+          value: best-effort-medium
+    variables:
+    - name: storageClass
+      value: vsan-default-storage-policy
+    - name: vmClass
+      value: best-effort-medium
+    - name: networks
+      value:
+        interfaces:
+          primary:
+            network:
+              name: subnet-set-public1
+              kind: SubnetSet
+              apiVersion: crd.nsx.vmware.com/v1alpha1
+    - name: volumes
+      value:
+      - capacity: 30Gi
+        mountPath: /var/lib/containerd
+        name: containerd
+        storageClass: vsan-default-storage-policy
+      - capacity: 30Gi
+        mountPath: /var/lib/kubelet
+        name: kubelet
+        storageClass: vsan-default-storage-policy
+    - name: kubernetes
+      value:
+        certificateRotation:
+          enabled: true
+          renewalDaysBeforeExpiry: 90
+        etcdConfiguration:
+          maximumDBSizeGiB: 4
+        security:
+          podSecurityStandard:
+            audit: privileged
+            auditVersion: latest
+            deactivated: false
+            enforce: privileged
+            enforceVersion: latest
+            warn: privileged
+            warnVersion: latest
+          resourceQuotaConfiguration:
+            enabled: true
+        apiServerConfiguration:
+          logs:
+            format: json
+        kubeletConfiguration:
+          logging:
+            format: json
+    - name: vsphereOptions
+      value:
+        persistentVolumes:
+          availableStorageClasses:
+          - vsan-default-storage-policy
+          defaultStorageClass: vsan-default-storage-policy
+    - name: osConfiguration
+      value:
+        ntp:
+          servers:
+          - ntp.broadcom.net
+        sshd:
+          banner: '---AUTHORIZED ACCESS ONLY--- Use of this system is restricted to
+            authorized users for authorized activities only. '
+    version: v1.36.2---vmware.2-vkr.3
+    workers:
+      machineDeployments:
+      - class: node-pool
+        metadata:
+          annotations:
+            cluster.x-k8s.io/cluster-api-autoscaler-node-group-max-size: "5"
+            cluster.x-k8s.io/cluster-api-autoscaler-node-group-min-size: "1"
+            run.tanzu.vmware.com/resolve-os-image: os-name=ubuntu,os-version=24.04
+        name: node-pool-1
